@@ -8,6 +8,7 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.output.SequenceFileOutputFormat;
 
 public class Driver {
 
@@ -29,9 +30,11 @@ public class Driver {
 			job.setReducerClass(ParseReducer.class);
 			job.setMapOutputKeyClass(Text.class);
 			job.setMapOutputValueClass(Text.class);
-//			job.setOutputKeyClass(Text.class);
-//			job.setOutputValueClass(Text.class);
-//			job.setOutputFormatClass(SequenceFileOutputFormat.class);
+
+			job.setOutputFormatClass(SequenceFileOutputFormat.class);
+			job.setOutputKeyClass(Text.class);
+			job.setOutputValueClass(Text.class);
+
 
 			FileInputFormat.addInputPath(job, new Path(inputPath));
 			FileOutputFormat.setOutputPath(job, new Path(outputPath));

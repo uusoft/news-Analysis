@@ -22,6 +22,8 @@ public class ParseMapper extends Mapper<Object, Text, Text, Text> {
 		String firstColumn = line.split("\"")[0];
 		
 		String[] parsedList = ParseLog.parseHtmlLog(firstColumn);
+		if (parsedList == null)
+			return;
 		String newsId = parsedList[0];
 		String uid = parsedList[1];
 		String time = parsedList[2];

@@ -42,6 +42,7 @@ private Map<String,Class<?>> classMap = new HashMap<String,Class<?>>();
 		runDriver.add("parseReceive.Driver", parseReceive.Driver.class);
 		runDriver.add("similarity.Driver", similarity.Driver.class);
 		runDriver.add("parseClickLogV2.Driver", parseClickLogV2.Driver.class);
+		runDriver.add("parseClickLog.Driver", parseClickLog.Driver.class);
 		runDriver.add("itemBaseRecommendation.Driver", itemBaseRecommendation.Driver.class);
 		runDriver.add("tempAnalysis.Driver", tempAnalysis.Driver.class);
 
