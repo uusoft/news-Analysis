@@ -45,6 +45,7 @@ private Map<String,Class<?>> classMap = new HashMap<String,Class<?>>();
 		runDriver.add("parseClickLog.Driver", parseClickLog.Driver.class);
 		runDriver.add("itemBaseRecommendation.Driver", itemBaseRecommendation.Driver.class);
 		runDriver.add("tempAnalysis.Driver", tempAnalysis.Driver.class);
+		runDriver.add("parsePicClickLog.Driver", parsePicClickLog.Driver.class);
 
 		String className = args[0];
 		if (args[0].equalsIgnoreCase("-help")) {

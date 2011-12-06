@@ -146,4 +146,94 @@ public class ParseLog {
 		
 		return result;
 	}
+	
+	/**
+	 * parse first column of nginx log with "/img7/ log
+	 * @param line
+	 * @return String array with 3 column:
+	 * result[0] = picname;
+	 * result[1] = p1;
+	 * result[2] = time;
+	 */
+	public static String[] parsePicLog(String line) {
+		
+		//check /img7/
+		String regex_img = ".*/img7/.*";
+		Pattern pattern_img = Pattern.compile(regex_img);
+		Matcher matcher = pattern_img.matcher(line);
+		String picName = "";
+		if (!matcher.matches()) 
+			return null;
+		
+		String regex_pic = ".*/([\\d_]*)\\.(jpg|png|jpeg|gif).*";
+		Pattern pattern_pic = Pattern.compile(regex_pic);
+		Matcher matcher_pic = pattern_pic.matcher(line);
+		if (matcher_pic.matches()) {
+			
+			// parse picName
+			try {
+				String matchedContent = matcher_pic.group(1);
+				
+				String[] temp1 = matchedContent.split("_");
+				if (temp1.length == 0) {
+					return null;
+				}
+				else {
+					picName = temp1[0];
+				}
+
+			} catch (ArrayIndexOutOfBoundsException e) {
+				e.printStackTrace();
+
+				return null;
+			}
+
+		} else {
+
+		}
+		
+		String[] result = new String[3];
+
+		//parse p1
+		String p1 = "";
+		String regex_p1 = ".*p1=([^\\s&]*).*";
+		Pattern pattern_p1 = Pattern.compile(regex_p1);
+		Matcher matcher2 = pattern_p1.matcher(line);
+		if (matcher2.matches()) {
+			p1 = matcher2.group(1);
+
+			try {
+				p1 = new String(Base64.decodeBase64(URLDecoder.decode(
+						p1, "utf-8").getBytes("utf-8")));
+			} catch (Exception e) {
+
+				return null;
+			}
+
+		}
+		
+		//parse time
+		String regex_time = ".*\\[(.*)\\].*";
+		Pattern pattern_time = Pattern.compile(regex_time);
+		Matcher matcher_time = pattern_time.matcher(line);
+		String time = "";
+		if (matcher_time.matches()) {
+			time = matcher_time.group(1);
+		}
+		
+		result[0] = picName;
+		result[1] = p1;
+		result[2] = time;
+		
+		return result;
+	}
+	
+	public static void main (String[] args) {
+		String inputLine = "10.25.15.68 - - [04/Dec/2011:00:00:05 +0800] " +
+				"GET /img7/adapt/wb/2011/12/03/1322875756692_460_1000.png?p1=Mzc0MzYwNw%3D%3D HTTP/1.0 ";
+		String[] tmp = ParseLog.parsePicLog(inputLine);
+		for (String t : tmp) {
+			System.out.println(t);
+		}
+	}
 }
