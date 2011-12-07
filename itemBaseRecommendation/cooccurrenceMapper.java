@@ -1,8 +1,5 @@
 package itemBaseRecommendation;
 
-import java.io.IOException;
-import java.util.Iterator;
-
 import org.apache.hadoop.io.ArrayWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;

@@ -15,7 +15,7 @@ public class ParseHtmlLogTest {
 	@Before
 	public void setUp() {
 		firstColumn = "49.112.31.250 - - [22/Nov/2011:00:03:14 +0800] GET /mpaper/2/20111121/5339_2_0_2_0_0_0_74/mpnws_6_2_1001038_p1.html?p1=ODU5NzAxNg%3D%3D&p2=QTAwMDAwMzIzRUQzRkY%3D&u=1 ";
-		expectedArray = new String[]{"1001038","8597016","22/Nov/2011:00:03:14 +0800"};
+		expectedArray = new String[]{"1001038","8597016","2011-11-22:12:03:22"};
 	}
 	
 	@After

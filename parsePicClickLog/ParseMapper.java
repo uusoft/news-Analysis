@@ -1,13 +1,9 @@
 package parsePicClickLog;
 
 import java.io.IOException;
-import java.net.URLDecoder;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import lib.ParseLog;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 

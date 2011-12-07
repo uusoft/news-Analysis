@@ -37,6 +37,7 @@ private Map<String,Class<?>> classMap = new HashMap<String,Class<?>>();
 	public static void main(String[] args) {
 		
 		MainDriver runDriver = new MainDriver();
+		runDriver.add("parseInterface.Driver", parseInterface.Driver.class);
 		runDriver.add("parseClickLog.Driver", parseClickLog.Driver.class);
 		runDriver.add("sequenceFileTest.Driver", sequenceFileTest.Driver.class);
 		runDriver.add("parseReceive.Driver", parseReceive.Driver.class);

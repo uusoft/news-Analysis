@@ -20,7 +20,7 @@ public class ParsePicLogTest {
 	public void setUp() {
 		firstColumn =  "10.25.15.68 - - [04/Dec/2011:00:00:05 +0800] " +
 				"GET /img7/adapt/wb/2011/12/03/1322875756692_460_1000.jpg?p1=Mzc0MzYwNw%3D%3D HTTP/1.0 ";
-		expectedArray = new String[]{"1322875756692","3743607","04/Dec/2011:00:00:05 +0800"};
+		expectedArray = new String[]{"1322875756692","3743607","2011-12-04:12:00:04"};
 	}
 	
 	@After
