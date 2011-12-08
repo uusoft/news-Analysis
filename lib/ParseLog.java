@@ -289,7 +289,8 @@ public class ParseLog {
 		String p1 = "";
 		
 		//check go type and parse go name
-		String regex_Allgo = "..*(/api/.*\\.[g|d]?o).*";
+//		String regex_Allgo = "..*(/api/.*\\.[g|d]?o).*";
+		String regex_Allgo = "..*(/api/[\\d\\w/]*\\.[g|d]?o).*";
 		Pattern pattern_Allgo = Pattern.compile(regex_Allgo);
 		Matcher matcher_Allgo = pattern_Allgo.matcher(line);
 		if (matcher_Allgo.matches()) {
@@ -339,7 +340,7 @@ public class ParseLog {
 	
 	public static void main (String[] args) {
 		
-		String inputLine = "10.13.81.241 - - [09/Nov/2011:23:59:01 +0800] GET /api/news/count.go?newsId=902882&p1=MjE1OTU2 HTTP/1.1";
+		String inputLine = "10.13.81.242 - - [05/Dec/2011:00:00:03 +0800] GET /api/set.go?m=pubDetail&pubId=1&cid=6942019&p=1&a=a_1&backUrl=set.go%3Fm%3Dsubscribe%26p%3D1%26cid%3D6942019%26t%3D0%26backUrl%3D&p1=Njk0MjAxOQ%3D%3D&p2=QTEwMDAwMjBERDIzQzg%3D&u=1 HTTP/1.1 ";
 		String[] tmp = ParseLog.parseInterface(inputLine);
 		for (String t : tmp) {
 			System.out.println(t);
