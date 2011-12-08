@@ -336,7 +336,7 @@ public class ParseLog {
 	
 	public static void main (String[] args) {
 		
-		String inputLine = "10.13.81.242 - - [05/Dec/2011:00:00:03 +0800] GET /api/news/count.go?newsId=1066246 HTTP/1.1 \"200\" 115 \"-\" \"sohunews/2.0.1 CFNetwork/485.12.7 Darwin/10.4.0\" \"118.80.202.155\" \"no-cache\" \"MPAPER_API:118.80.202.155:a=4&b=7660067&c=8804248480c7db88e3044e14931c7bcfee4d73df&d=4&e=&f=iPhone OS&g=4.2.1&h=640x960&i=iPhone&j=1006&m=null&q=null&r=0&s=&t=1";
+		String inputLine = "10.13.81.241 - - [07/Dec/2011:00:31:24 +0800] GET /api/comment/save.go?newsId=1083922&content=%E8%97%8F%E6%AF%92%E5%B0%B1%E4%B8%80%E5%AE%9A%E8%A6%81%E5%88%A4%E6%AD%BB%E5%88%91%E5%90%97%EF%BC%9F%E5%A6%82%E6%9E%9C%E4%B8%8D%E6%98%AF%E5%A5%B9%E4%BB%AC%E8%87%AA%E5%B7%B1%E6%84%8F%E6%84%BF%E8%BF%90%E8%97%8F%E7%9A%84+%E8%BF%98%E6%98%AF%E8%A6%81%E5%88%A4%E6%AD%BB%E5%88%91%E5%90%97%EF%BC%9F&p1=NjUyNTcxNg%3D%3D HTTP/1.1 \"200\" 141 \"-\" \"Android Sohu News\" \"10.217.129.128\" \"no-cache\" \"MPAPER_API:10.208.0.3:a=4&b=6525716&c=356952045443035&d=4&e=&f=Android&g=2.2.1&h=320x480&i=GT-S5660&j=2050&m=null&q=null&r=0&s=&t=1\"";
 		String[] tmp = ParseLog.parseInterface(inputLine);
 		for (String t : tmp) {
 			System.out.println(t);

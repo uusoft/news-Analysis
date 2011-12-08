@@ -3,6 +3,7 @@ package lib;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,7 +35,10 @@ public class DateUtil {
 			time = matcher_time.group(1);
 		}
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy:hh:mm:ss");
+		time = time.replaceAll("\\s", "");
+		time = time.replaceAll("\\+0800", "");
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy:hh:mm:ss",Locale.US);
 		Date result = null;
 		try {
 			result = sdf.parse(time);
@@ -54,12 +58,12 @@ public class DateUtil {
 		dateString = dateString.replaceAll("\\s", "");
 		dateString = dateString.replaceAll("\\+0800", "");
 		System.out.println(dateString);
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy:hh:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MMMM/yyyy:hh:mm:ss",Locale.US);
 		try {
 			Date d = sdf.parse(dateString);
 			System.out.println(d);
-			String r = DateUtil.formatDate(DateUtil.parseDateFromLog(line));
-			System.out.println(r);
+//			String r = DateUtil.formatDate(DateUtil.parseDateFromLog(line));
+//			System.out.println(r);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

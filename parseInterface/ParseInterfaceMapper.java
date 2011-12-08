@@ -28,7 +28,7 @@ public class ParseInterfaceMapper extends Mapper<Object, Text, Text, Text> {
 			time = tmp[1];
 		}
 		
-		
+//		System.out.println(interfaceName+":"+p1 + "," + newsId + "," + date + "," + time);
 		
 		try {
 			context.write(new Text(interfaceName), new Text(p1 + "," + newsId + "," + date + "," + time));
