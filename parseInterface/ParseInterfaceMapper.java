@@ -22,8 +22,13 @@ public class ParseInterfaceMapper extends Mapper<Object, Text, Text, Text> {
 		String newsId = temp[2];
 		String time = temp[3];
 		String tmp[] = time.split(":", 2);
-		String date = tmp[0];
-		time = tmp[1];
+		String date = "";
+		if (tmp.length == 2) {
+			date  = tmp[0];
+			time = tmp[1];
+		}
+		
+		
 		
 		try {
 			context.write(new Text(interfaceName), new Text(p1 + "," + newsId + "," + date + "," + time));
