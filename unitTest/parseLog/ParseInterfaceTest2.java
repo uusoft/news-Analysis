@@ -14,8 +14,8 @@ public class ParseInterfaceTest2 {
 	
 	@Before
 	public void setUp() {
-		firstColumn = "10.13.81.242 - - [05/Dec/2011:00:00:03 +0800] GET /api/set.go?m=pubDetail&pubId=1&cid=6942019&p=1&a=a_1&backUrl=set.go%3Fm%3Dsubscribe%26p%3D1%26cid%3D6942019%26t%3D0%26backUrl%3D&p1=Njk0MjAxOQ%3D%3D&p2=QTEwMDAwMjBERDIzQzg%3D&u=1 HTTP/1.1 ";
-		expectedArray = new String[]{"/api/set.go","6942019","","2011-12-05:12:00:05"};
+		firstColumn = "10.13.81.242 - - [05/Dec/2011:00:00:03 +0800] GET /api/news/count.go?newsId=1066246 HTTP/1.1 \"200\" 115 \"-\" \"sohunews/2.0.1 CFNetwork/485.12.7 Darwin/10.4.0\" \"118.80.202.155\" \"no-cache\" \"MPAPER_API:118.80.202.155:a=4&b=7660067&c=8804248480c7db88e3044e14931c7bcfee4d73df&d=4&e=&f=iPhone OS&g=4.2.1&h=640x960&i=iPhone&j=1006&m=null&q=null&r=0&s=&t=1";
+		expectedArray = new String[]{"/api/news/count.go","7660067","1066246","2011-12-05:12:00:05"};
 	}
 	
 	@After

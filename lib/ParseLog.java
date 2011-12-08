@@ -272,6 +272,8 @@ public class ParseLog {
 		return result;
 	}
 	
+	
+
 	/**
 	 * parse first column of nginx log with *.go/*.do
 	 * @param line
@@ -288,45 +290,40 @@ public class ParseLog {
 		String time = "";
 		String p1 = "";
 		
+		String firstColumn = line.split("\"")[0];
 		//check go type and parse go name
 //		String regex_Allgo = "..*(/api/.*\\.[g|d]?o).*";
 		String regex_Allgo = "..*(/api/[\\d\\w/]*\\.[g|d]?o).*";
 		Pattern pattern_Allgo = Pattern.compile(regex_Allgo);
-		Matcher matcher_Allgo = pattern_Allgo.matcher(line);
+		Matcher matcher_Allgo = pattern_Allgo.matcher(firstColumn);
 		if (matcher_Allgo.matches()) {
 			interfaceName = matcher_Allgo.group(1);
 		} else {
 			// do not match *.go
 			return null;
 		}
-
-		//parse p1
-		String regex_p1 = ".*p1=([^\\s&]*).*";
-		Pattern pattern_p1 = Pattern.compile(regex_p1);
-		Matcher matcher2 = pattern_p1.matcher(line);
-		if (matcher2.matches()) {
-			p1 = matcher2.group(1);
-
-			try {
-				p1 = new String(Base64.decodeBase64(URLDecoder.decode(
-						p1, "utf-8").getBytes("utf-8")));
-			} catch (Exception e) {
-
-			}
-
-		}
 		
 		//parse time
-		time = DateUtil.formatDate(DateUtil.parseDateFromLog(line));
+		time = DateUtil.formatDate(DateUtil.parseDateFromLog(firstColumn));
 		
 		//parse newsId
 
 		String regex_newsId = ".*newsId=([\\d]*).*";
 		Pattern pattern_newsId = Pattern.compile(regex_newsId);
-		Matcher matcher_newsId = pattern_newsId.matcher(line);
+		Matcher matcher_newsId = pattern_newsId.matcher(firstColumn);
 		if (matcher_newsId.matches()) {
 			newsId = matcher_newsId.group(1);
 			// System.out.println(newsId);
+		}
+		
+
+		//parse p1
+		String regex_p1 = ".*b=([\\d]*).*";
+		Pattern pattern_p1 = Pattern.compile(regex_p1);
+		Matcher matcher2 = pattern_p1.matcher(line);
+		if (matcher2.matches()) {
+			p1 = matcher2.group(1);
+
 		}
 				
 		result[0] = interfaceName;
@@ -336,11 +333,10 @@ public class ParseLog {
 		
 		return result;
 	}
-
 	
 	public static void main (String[] args) {
 		
-		String inputLine = "10.13.81.242 - - [05/Dec/2011:00:00:03 +0800] GET /api/set.go?m=pubDetail&pubId=1&cid=6942019&p=1&a=a_1&backUrl=set.go%3Fm%3Dsubscribe%26p%3D1%26cid%3D6942019%26t%3D0%26backUrl%3D&p1=Njk0MjAxOQ%3D%3D&p2=QTEwMDAwMjBERDIzQzg%3D&u=1 HTTP/1.1 ";
+		String inputLine = "10.13.81.242 - - [05/Dec/2011:00:00:03 +0800] GET /api/news/count.go?newsId=1066246 HTTP/1.1 \"200\" 115 \"-\" \"sohunews/2.0.1 CFNetwork/485.12.7 Darwin/10.4.0\" \"118.80.202.155\" \"no-cache\" \"MPAPER_API:118.80.202.155:a=4&b=7660067&c=8804248480c7db88e3044e14931c7bcfee4d73df&d=4&e=&f=iPhone OS&g=4.2.1&h=640x960&i=iPhone&j=1006&m=null&q=null&r=0&s=&t=1";
 		String[] tmp = ParseLog.parseInterface(inputLine);
 		for (String t : tmp) {
 			System.out.println(t);
