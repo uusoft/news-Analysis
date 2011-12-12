@@ -11,6 +11,8 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.SequenceFileOutputFormat;
 
+import com.hadoop.compression.lzo.LzoCodec;
+
 public class Driver {
 
 
@@ -40,6 +42,8 @@ public class Driver {
 			FileInputFormat.setInputPathFilter(job, OutputLogFilter.class);
 
 			FileOutputFormat.setOutputPath(job, new Path(outputPath));
+			FileOutputFormat.setCompressOutput(job, true);
+			FileOutputFormat.setOutputCompressorClass(job, LzoCodec.class);
 
 			job.waitForCompletion(true);
 
