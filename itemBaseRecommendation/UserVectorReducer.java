@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lib.ListWritable;
+import lib.TextListWritable;
 
-import org.apache.hadoop.io.ArrayWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.mapreduce.Reducer;
 
 
-public class UserVectorReducer extends Reducer<Text,Text,Text,ListWritable>{
+public class UserVectorReducer extends Reducer<Text,Text,Text,TextListWritable>{
 	
 	@Override
 	public void reduce(Text uid, Iterable<Text> nidList, Context context) {
@@ -21,7 +21,7 @@ public class UserVectorReducer extends Reducer<Text,Text,Text,ListWritable>{
 		for (Text t : nidList) {
 			list.add(t);
 		}
-		ListWritable lw = new ListWritable(Text.class);
+		TextListWritable lw = new TextListWritable();
 		lw.set(list);
 		
 		

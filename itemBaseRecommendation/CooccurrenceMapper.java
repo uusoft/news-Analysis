@@ -3,17 +3,16 @@ package itemBaseRecommendation;
 import java.io.IOException;
 import java.util.List;
 
-import lib.ListWritable;
+import lib.TextListWritable;
 
-import org.apache.hadoop.io.ArrayWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class CooccurrenceMapper extends Mapper<Text,ListWritable,Text,Text>{
+public class CooccurrenceMapper extends Mapper<Text,TextListWritable,Text,Text>{
 	
 	@Override
-	public void map(Text uid,ListWritable nidList, Context context) {
+	public void map(Text uid,TextListWritable nidList, Context context) {
 		
 		List<Writable> lw = nidList.get();
 		for (Writable w : lw) {
