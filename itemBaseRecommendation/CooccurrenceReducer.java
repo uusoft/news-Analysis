@@ -17,9 +17,11 @@ public class CooccurrenceReducer extends Reducer<Text,Text,Text,ItemCooccurrence
 		Map<Text,DoubleWritable> nidHash = new HashMap<Text,DoubleWritable>();
 		
 		for (Text nid2 : nidList) {
-			double count = nidHash.get(nid2).get();
-			nidHash.put(nid2, new DoubleWritable(++count));
-			
+			if (nidHash.containsKey(nid2)) {
+				double count = nidHash.get(nid2).get();
+				nidHash.put(nid2, new DoubleWritable(++count));
+			}
+
 		}
 		
 		ItemCooccurrence itemCooccurrence = new ItemCooccurrence(nid,nidHash);

@@ -64,11 +64,13 @@ public class ListWritable implements Writable {
 	}
 
 	public void readFields(DataInput in) throws IOException {
-		values = new ArrayList<Writable>(in.readInt()); // construct values
-		for (Writable value : values) {
-			value = WritableFactories.newInstance(valueClass);
-			value.readFields(in);
+		int size = in.readInt();
+		values = new ArrayList<Writable>(size); // construct values
+		for (int i=0; i<size; i++) {
+			values.add(i, WritableFactories.newInstance(valueClass));
+			values.get(i).readFields(in);
 		}
+
 
 	}
 

@@ -1,0 +1,24 @@
+mr round 1:
+	nid->uidandtime
+		||
+	userVectorMapper
+		||
+	uid->nid
+		||
+	userVectorReducer
+		||
+	uid->nidList
+
+mr round 2:
+	udi->nidList
+		||
+	cooccurrenceMapper
+		||
+	nid1->nid2
+		||
+	cooccurrenceReducer
+		||
+	nid->itemCooccurrence
+
+mr round 3:
+

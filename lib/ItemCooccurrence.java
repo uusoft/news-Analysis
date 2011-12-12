@@ -13,7 +13,7 @@ import org.apache.hadoop.io.Writable;
 
 /**
  * @author cuitao
- *ÐòÁÐ»¯¸ñÊ½:
+ *ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½Ê½:
  *int	map.length
  *Text	nid
  *Text,DoubleWritable pairs values
@@ -22,8 +22,7 @@ public class ItemCooccurrence implements Writable{
 
 	private Text nid;
 	private Map<Text,DoubleWritable> cooccurrence;
-	private ArrayWritable a;
-	
+		
 	public ItemCooccurrence() {
 		nid = new Text("0");
 		cooccurrence = new HashMap<Text,DoubleWritable>(); 
@@ -70,6 +69,19 @@ public class ItemCooccurrence implements Writable{
 			prefs.write(out);
 		}
 		
+	}
+	
+	@Override
+	public String toString() {
+		
+		String result = "";
+		for (Map.Entry<Text, DoubleWritable> entry : cooccurrence.entrySet()) {
+			Text uid = entry.getKey();
+			DoubleWritable importance = entry.getValue();
+			result = uid.toString() + "->" + importance.get() + ",";
+		}
+
+		return "";
 	}
 
 }
