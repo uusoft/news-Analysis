@@ -31,7 +31,7 @@ public class ParseInterfaceMapper extends Mapper<Object, Text, Text, Text> {
 //		System.out.println(interfaceName+":"+p1 + "," + newsId + "," + date + "," + time);
 		
 		try {
-			context.write(new Text(interfaceName), new Text(p1 + "," + newsId + "," + date + "," + time));
+			context.write(new Text(interfaceName), new Text(p1 + "\t" + newsId + "\t" + date + "\t" + time));
 		} catch (IOException e) {
 
 			e.printStackTrace();
