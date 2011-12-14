@@ -7,27 +7,32 @@ import java.util.List;
 import lib.ListWritable;
 import lib.TextListWritable;
 
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.MapWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.mapreduce.Reducer;
 
 
-public class UserVectorReducer extends Reducer<Text,Text,Text,TextListWritable>{
+public class UserVectorReducer extends Reducer<Text,Text,Text,MapWritable>{
 	
 	@Override
 	public void reduce(Text uid, Iterable<Text> nidList, Context context) {
 
-		List<Text> list = new ArrayList<Text>();
-		for (Text t : nidList) {
-			list.add(t);
+		MapWritable preference = new MapWritable();
+
+		for (Text nid : nidList) {
+			if (preference.containsKey(nid)) {
+				IntWritable value = (IntWritable) preference.get(nid);
+				preference.put(nid, new IntWritable(value.get()+1));
+			}
+			else
+				preference.put(nid, new IntWritable(1));
 		}
-		TextListWritable lw = new TextListWritable();
-		lw.set(list);
-		
 		
 		try {
 
-			context.write(uid, lw);
+			context.write(uid, preference);
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
