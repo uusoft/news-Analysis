@@ -2,28 +2,26 @@ package itemBaseRecommendation;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 
-import lib.TextListWritable;
-
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.MapWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class CooccurrenceMapper extends Mapper<Text,TextListWritable,Text,Text>{
+public class CooccurrenceMapper extends Mapper<Text,MapWritable,Text,Text>{
 	
 	@Override
-	public void map(Text uid,TextListWritable nidList, Context context) {
+	public void map(Text uid,MapWritable prefMap, Context context) {
 		
-		List<Writable> lw = nidList.get();
-		for (Writable w : lw) {
-			Text nid = (Text) w;
-			
-		}
+		Text[] nidArray = prefMap.keySet().toArray(new Text[0]);
 		
-		for (int i=0; i<lw.size(); i++) {
-			for (int j=i+1; j<lw.size(); j++) {
+		for (int i=0; i<nidArray.length; i++) {
+			for (int j=i+1; j<nidArray.length; j++) {
 				try {
-					context.write((Text) lw.get(i), (Text) lw.get(j));
+					context.write( nidArray[i], nidArray[j]);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -33,21 +31,7 @@ public class CooccurrenceMapper extends Mapper<Text,TextListWritable,Text,Text>{
 				}
 			}
 		}
-//		for (Text nid: nidList) {
-//			Iterator<Text> i = nidList.iterator();
-//			while(i.hasNext()) {
-//				Text nid2 = i.next();
-//				try {
-//					context.write(nid, nid2);
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
-// 		}
+
 	}
 
 }

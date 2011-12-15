@@ -1,10 +1,10 @@
 package itemBaseRecommendation;
 
-import lib.TextListWritable;
 import lib.ToolJob;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.MapWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -30,7 +30,7 @@ public class UserVectorJob extends ToolJob {
 		job.setMapOutputValueClass(Text.class);
 		job.setReducerClass(UserVectorReducer.class);
 		job.setOutputKeyClass(Text.class);
-		job.setOutputValueClass(TextListWritable.class);
+		job.setOutputValueClass(MapWritable.class);
 		job.setOutputFormatClass(SequenceFileOutputFormat.class);
 		job.setInputFormatClass(SequenceFileInputFormat.class);
 		

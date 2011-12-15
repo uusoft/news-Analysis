@@ -7,10 +7,10 @@ mr round 1: get user's preferences
 		||
 	userVectorReducer
 		||
-	uid->nidList
+	uid->preference(MapWritable)
 
 mr round 2: get cooccurrence matrix
-	udi->nidList
+	udi->preference(MapWritable)
 		||
 	cooccurrenceMapper
 		||
@@ -20,13 +20,13 @@ mr round 2: get cooccurrence matrix
 		||
 	nid->itemCooccurrence
 
-mr round 3: to VectorAndPref
+mr round 3: to CooccurrenceAndPref
 	VectorOrPrefWritable structure:
 		nid,
 		nidPrefList: value get from co-occurrence matrix
-		uidPredList: value that user's pref on this uid.
+		uidPrefList: value that user's pref on this uid.
 	
-	3.1 uid->nidList
+	3.1 uid->preference(MapWritable)
 		||
 	toVectorAndPrefMapper1
 		||

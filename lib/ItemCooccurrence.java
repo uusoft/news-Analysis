@@ -40,6 +40,10 @@ public class ItemCooccurrence implements Writable{
 		return nid;
 	}
 	
+	public int size() {
+		return cooccurrence.size();
+	}
+	
 	public Map<Text,DoubleWritable> getCooccurrence() {
 		return cooccurrence;
 	}

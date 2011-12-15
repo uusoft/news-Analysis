@@ -13,18 +13,21 @@ import org.apache.hadoop.mapreduce.Reducer;
 public class CooccurrenceReducer extends Reducer<Text,Text,Text,ItemCooccurrence>{
 	
 	@Override
-	public void reduce(Text nid, Iterable<Text> nidList, Context context) {
-		Map<Text,DoubleWritable> nidHash = new HashMap<Text,DoubleWritable>();
+	public void reduce(Text nid, Iterable<Text> targetNidList, Context context) {
+		Map<Text,DoubleWritable> targetNidHash = new HashMap<Text,DoubleWritable>();
 		
-		for (Text nid2 : nidList) {
-			if (nidHash.containsKey(nid2)) {
-				double count = nidHash.get(nid2).get();
-				nidHash.put(nid2, new DoubleWritable(++count));
+		for (Text targetNid : targetNidList) {
+			if (targetNidHash.containsKey(targetNid)) {
+				double count = targetNidHash.get(targetNid).get();
+				targetNidHash.put(targetNid, new DoubleWritable(++count));
+			}
+			else {
+				targetNidHash.put(targetNid, new DoubleWritable(1));
 			}
 
 		}
 		
-		ItemCooccurrence itemCooccurrence = new ItemCooccurrence(nid,nidHash);
+		ItemCooccurrence itemCooccurrence = new ItemCooccurrence(nid,targetNidHash);
 		
 		try {
 			context.write(nid, itemCooccurrence);
