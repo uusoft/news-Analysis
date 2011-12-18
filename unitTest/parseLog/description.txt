@@ -1,0 +1,53 @@
+mr round 1: get user's preferences
+	nid->uidandtime
+		||
+	userVectorMapper
+		||
+	uid->nid
+		||
+	userVectorReducer
+		||
+	uid->nidList
+
+mr round 2: get cooccurrence matrix
+	udi->nidList
+		||
+	cooccurrenceMapper
+		||
+	nid1->nid2
+		||
+	cooccurrenceReducer
+		||
+	nid->itemCooccurrence
+
+mr round 3: to VectorAndPref
+	VectorOrPrefWritable structure:
+		nid,
+		nidPrefList: value get from co-occurrence matrix
+		uidPredList: value that user's pref on this uid.
+	
+	3.1 uid->nidList
+		||
+	toVectorAndPrefMapper1
+		||
+	nid->VectorOrPrefWritable
+		||
+	no reducer
+
+	3.2 nid->itemCooccurrence : result from round 2
+		||
+	toVectorAndPrefMapper2
+	nid->VectorOrPrefWritable
+		||
+	no reducer
+
+	3.3 nid->VectorOrPrefWritable : result from 3.1 and 3.2
+		||
+	no mapper
+		||
+	toVectorAndPrefWritable Reducer
+		||
+	nid->VectorOrPrefWritable
+
+
+
