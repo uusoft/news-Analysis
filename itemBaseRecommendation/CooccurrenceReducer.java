@@ -24,17 +24,17 @@ public class CooccurrenceReducer extends Reducer<Text,Text,Text,ItemCooccurrence
 
 		}
 		
-		ItemCooccurrence itemCooccurrence = new ItemCooccurrence(nid,nidHash);
-		
-		try {
-			context.write(nid, itemCooccurrence);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		ItemCooccurrence itemCooccurrence = new ItemCooccurrence(nid,nidHash);
+//		
+//		try {
+//			context.write(nid, itemCooccurrence);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 
 }

@@ -3,17 +3,16 @@ package lib;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Map.Entry;
 
-import org.apache.hadoop.io.ArrayWritable;
-import org.apache.hadoop.io.DoubleWritable;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.MapWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.Writable;
 
 /**
  * @author cuitao
- *���л���ʽ:
+ *
  *int	map.length
  *Text	nid
  *Text,DoubleWritable pairs values
@@ -21,17 +20,17 @@ import org.apache.hadoop.io.Writable;
 public class ItemCooccurrence implements Writable{
 
 	private Text nid;
-	private Map<Text,DoubleWritable> cooccurrence;
+	private MapWritable cooccurrence;
 		
 	public ItemCooccurrence() {
 		nid = new Text("0");
-		cooccurrence = new HashMap<Text,DoubleWritable>(); 
+		cooccurrence = new MapWritable(); 
 	}
-	public ItemCooccurrence(Text nid, Map<Text,DoubleWritable> cooccurrence) {
+	public ItemCooccurrence(Text nid, MapWritable cooccurrence) {
 		set(nid,cooccurrence);
 	}
 	
-	public void set(Text nid, Map<Text,DoubleWritable> cooccurrence) {
+	public void set(Text nid, MapWritable cooccurrence) {
 		this.nid = nid;
 		this.cooccurrence = cooccurrence;
 	}
@@ -40,34 +39,23 @@ public class ItemCooccurrence implements Writable{
 		return nid;
 	}
 	
-	public Map<Text,DoubleWritable> getCooccurrence() {
+	public MapWritable getCooccurrence() {
 		return cooccurrence;
 	}
 	
 	@Override
 	public void readFields(DataInput in) throws IOException {
-		int mapLength = in.readInt();
+		
 		nid.readFields(in);
-		cooccurrence = new HashMap<Text,DoubleWritable>(mapLength);
-		for (Map.Entry<Text, DoubleWritable> entry : cooccurrence.entrySet()) {
-			entry.getKey().readFields(in);
-			entry.getValue().readFields(in);
-		}
-
+		cooccurrence.readFields(in);
+		
 	}
 
 	@Override
 	public void write(DataOutput out) throws IOException {
 		
-		out.writeInt(cooccurrence.size());
 		nid.write(out);
-		for (Map.Entry<Text, DoubleWritable> entry : cooccurrence.entrySet()) {
-			Text itemId = entry.getKey();
-			DoubleWritable prefs = entry.getValue();
-			
-			itemId.write(out);
-			prefs.write(out);
-		}
+		cooccurrence.write(out);
 		
 	}
 	
@@ -75,13 +63,13 @@ public class ItemCooccurrence implements Writable{
 	public String toString() {
 		
 		String result = "";
-		for (Map.Entry<Text, DoubleWritable> entry : cooccurrence.entrySet()) {
-			Text uid = entry.getKey();
-			DoubleWritable importance = entry.getValue();
-			result = uid.toString() + "->" + importance.get() + ",";
+		for (Entry<Writable,Writable> entry : cooccurrence.entrySet()) {
+			Text nid = (Text) entry.getKey();
+			IntWritable coValue = (IntWritable) entry.getValue();
+			result = nid.toString() + "->" + coValue.get() + ",";
 		}
 
-		return "";
+		return result;
 	}
 
 }

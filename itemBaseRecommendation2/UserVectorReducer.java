@@ -24,7 +24,12 @@ public class UserVectorReducer extends Reducer<Text,Text,Text,MapWritable>{
 		MapWritable preference = new MapWritable();
 		List<Text> t = new ArrayList<Text>();
 
+		if (uid.toString().equals("9991157")) {
+			System.out.println("pause here");
+		}
 		for (Text nid : nidList) {
+			Text nidNew = new Text(nid.toString());
+			nid=nidNew;
 			t.add(nid);
 			if (preference.containsKey(nid)) {
 				IntWritable value = (IntWritable) preference.get(nid);
@@ -33,10 +38,13 @@ public class UserVectorReducer extends Reducer<Text,Text,Text,MapWritable>{
 			else
 				preference.put(nid, new IntWritable(1));
 		}
-//		
-//		for (Entry<Writable, Writable> entry : preference.entrySet()) {
-////			System.out.println(entry.getKey()+","+entry.getValue());
-//		}
+
+		System.out.print(uid+":");		
+		for (Entry<Writable, Writable> entry : preference.entrySet()) {
+			System.out.print(entry.getKey()+","+entry.getValue()+"|");
+		}
+		System.out.println("");
+		
 		try {
 
 			context.write(uid, preference);
@@ -52,6 +60,7 @@ public class UserVectorReducer extends Reducer<Text,Text,Text,MapWritable>{
 	
 	public static void main (String[] args) {
 		MapWritable mw = new MapWritable();
+		
 		mw.put(new Text("a"), new IntWritable(1));
 		mw.put(new Text("b"), new IntWritable(1));
 		mw.put(new Text("a"), new IntWritable(2));

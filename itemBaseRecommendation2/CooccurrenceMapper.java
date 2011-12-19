@@ -15,7 +15,9 @@ public class CooccurrenceMapper extends Mapper<Text,MapWritable,Text,Text>{
 		
 		Set<Writable>  set = mw.keySet();
 		Text[] array = set.toArray(new Text[0]);
-		
+		if (array.length >1) {
+			System.out.println("hello");
+		}
 		for (int i=0; i<array.length; i++) {
 			for (int j=i+1; j<array.length; j++) {
 				try {

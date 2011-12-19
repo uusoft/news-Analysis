@@ -1,12 +1,11 @@
 package itemBaseRecommendation2;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import lib.ItemCooccurrence;
 
-import org.apache.hadoop.io.DoubleWritable;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.MapWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
@@ -14,17 +13,21 @@ public class CooccurrenceReducer extends Reducer<Text,Text,Text,ItemCooccurrence
 	
 	@Override
 	public void reduce(Text nid, Iterable<Text> nidList, Context context) {
-		Map<Text,DoubleWritable> nidHash = new HashMap<Text,DoubleWritable>();
+		MapWritable nidMap = new MapWritable();
 		
 		for (Text nid2 : nidList) {
-			if (nidHash.containsKey(nid2)) {
-				double count = nidHash.get(nid2).get();
-				nidHash.put(nid2, new DoubleWritable(++count));
+			if (nidMap.containsKey(nid2)) {
+				IntWritable coValue = (IntWritable) nidMap.get(nid2);
+				int count = coValue.get();
+				nidMap.put(nid2, new IntWritable(++count));
+			}
+			else {
+				nidMap.put(nid2, new IntWritable(1));
 			}
 
 		}
 		
-		ItemCooccurrence itemCooccurrence = new ItemCooccurrence(nid,nidHash);
+		ItemCooccurrence itemCooccurrence = new ItemCooccurrence(nid,nidMap);
 		
 		try {
 			context.write(nid, itemCooccurrence);
