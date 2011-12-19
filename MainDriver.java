@@ -1,6 +1,10 @@
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.hadoop.io.TestMapWritable;
+
+import test.TestMapWritableJob;
+
 public class MainDriver {
 
 private Map<String,Class<?>> classMap = new HashMap<String,Class<?>>();
@@ -49,6 +53,7 @@ private Map<String,Class<?>> classMap = new HashMap<String,Class<?>>();
 		runDriver.add("parsePicClickLog.Driver", parsePicClickLog.Driver.class);
 		runDriver.add("api-stat", stat.api.UvDriver.class);
 		runDriver.add("text2Seq", parse.FileParseTextToSequence.class);
+		runDriver.add("test", TestMapWritableJob.class);
 
 		String className = args[0];
 		if (args[0].equalsIgnoreCase("-help")) {
