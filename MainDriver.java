@@ -53,6 +53,7 @@ private Map<String,Class<?>> classMap = new HashMap<String,Class<?>>();
 		String className = args[0];
 		if (args[0].equalsIgnoreCase("-help")) {
 			runDriver.printHelp();
+			System.exit(0);
 		}
 		if (!runDriver.find(className)) {
 			System.out.println("do not have this class");
