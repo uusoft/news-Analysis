@@ -1,4 +1,4 @@
-package parseReceive;
+package parse.receive;
 
 import java.io.IOException;
 import java.util.HashSet;

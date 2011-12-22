@@ -1,4 +1,4 @@
-package parseClickLogV2;
+package parse.clickLogV2;
 
 import java.io.IOException;
 

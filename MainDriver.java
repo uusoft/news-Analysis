@@ -41,19 +41,20 @@ private Map<String,Class<?>> classMap = new HashMap<String,Class<?>>();
 	public static void main(String[] args) {
 		
 		MainDriver runDriver = new MainDriver();
-		runDriver.add("parseInterface.Driver", parseInterface.Driver.class);
-		runDriver.add("parseClickLog.Driver", parseClickLog.Driver.class);
+		runDriver.add("parseInterface.Driver", parse.api.Driver.class);
+		runDriver.add("parseClickLog.Driver", parse.clickLog.Driver.class);
 		runDriver.add("sequenceFileTest.Driver", sequenceFileTest.Driver.class);
-		runDriver.add("parseReceive.Driver", parseReceive.Driver.class);
+		runDriver.add("parseReceive.Driver", parse.receive.Driver.class);
 		runDriver.add("similarity.Driver", similarity.Driver.class);
-		runDriver.add("parseClickLogV2.Driver", parseClickLogV2.Driver.class);
-		runDriver.add("parseClickLog.Driver", parseClickLog.Driver.class);
+		runDriver.add("parseClickLogV2.Driver", parse.clickLogV2.Driver.class);
+		runDriver.add("parseClickLog.Driver", parse.clickLog.Driver.class);
 		runDriver.add("recommend", itemBaseRecommendation2.Driver.class);
 		runDriver.add("tempAnalysis.Driver", tempAnalysis.Driver.class);
-		runDriver.add("parsePicClickLog.Driver", parsePicClickLog.Driver.class);
+		runDriver.add("parsePicClickLog.Driver", parse.picClickLog.Driver.class);
 		runDriver.add("api-stat", stat.api.UvDriver.class);
 		runDriver.add("text2Seq", parse.FileParseTextToSequence.class);
 		runDriver.add("test", TestMapWritableJob.class);
+		runDriver.add("lastvisit", parse.lastvisit.Driver.class);
 
 		String className = args[0];
 		if (args[0].equalsIgnoreCase("-help")) {

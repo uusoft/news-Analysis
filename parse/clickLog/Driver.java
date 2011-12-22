@@ -1,11 +1,10 @@
-package parseClickLogV2;
+package parse.clickLog;
 
 import java.io.IOException;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapred.OutputLogFilter;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
@@ -31,13 +30,13 @@ public class Driver {
 			job.setReducerClass(ParseReducer.class);
 			job.setMapOutputKeyClass(Text.class);
 			job.setMapOutputValueClass(Text.class);
+
+			job.setOutputFormatClass(SequenceFileOutputFormat.class);
 			job.setOutputKeyClass(Text.class);
 			job.setOutputValueClass(Text.class);
-			job.setOutputFormatClass(SequenceFileOutputFormat.class);
+
 
 			FileInputFormat.addInputPath(job, new Path(inputPath));
-			FileInputFormat.setInputPathFilter(job, OutputLogFilter.class);
-
 			FileOutputFormat.setOutputPath(job, new Path(outputPath));
 
 			job.waitForCompletion(true);

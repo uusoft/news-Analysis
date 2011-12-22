@@ -1,4 +1,4 @@
-package parseReceive;
+package parse.receive;
 import java.util.List;
 
 import org.apache.hadoop.io.Text;
@@ -8,9 +8,9 @@ import org.apache.hadoop.mapreduce.Mapper;
 public class ParseMapper extends Mapper<Object, Text, Text, Text>{
 	
 	/* (non-Javadoc)
-	 * ÊäÈëkey	ÎÞ
-	 * ÊäÈëvalue	Ò»ÐÐnignxlog
-	 * Êä³ökey-value¸ñÊ½: termId+","+platform -> userId
+	 * ï¿½ï¿½ï¿½ï¿½key	ï¿½ï¿½
+	 * ï¿½ï¿½ï¿½ï¿½value	Ò»ï¿½ï¿½nignxlog
+	 * ï¿½ï¿½ï¿½key-valueï¿½ï¿½Ê½: termId+","+platform -> userId
 	 */
 	@Override
 	public void map(Object key, Text value, Context context) {

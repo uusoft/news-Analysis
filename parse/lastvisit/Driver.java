@@ -1,6 +1,8 @@
-package parseInterface;
+package parse.lastvisit;
 
 import java.io.IOException;
+
+import lib.JobUtil;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -9,12 +11,9 @@ import org.apache.hadoop.mapred.OutputLogFilter;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-import org.apache.hadoop.mapreduce.lib.output.SequenceFileOutputFormat;
-
-//import com.hadoop.compression.lzo.LzoCodec;
+import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
 public class Driver {
-
 
 	public static void main(String[] args) {
 
@@ -26,24 +25,18 @@ public class Driver {
 		String outputPath = args[1];
 		Configuration conf = new Configuration();
 		try {
-			Job job = new Job(conf, "parse interface log");
+			Job job = JobUtil.prepareJob("get lastVisit", conf, LastVisitMapper.class,
+					Text.class, Text.class, LastVisitReducer.class, Text.class,
+					Text.class);
 
-			job.setNumReduceTasks(10);
 			job.setJarByClass(Driver.class);
-			job.setMapperClass(ParseInterfaceMapper.class);
-			job.setReducerClass(ParseInterfaceReducer.class);
-			job.setMapOutputKeyClass(Text.class);
-			job.setMapOutputValueClass(Text.class);
-			job.setOutputKeyClass(Text.class);
-			job.setOutputValueClass(Text.class);
-			job.setOutputFormatClass(SequenceFileOutputFormat.class);
+			job.setNumReduceTasks(10);
+			job.setOutputFormatClass(TextOutputFormat.class);
 
 			FileInputFormat.addInputPath(job, new Path(inputPath));
 			FileInputFormat.setInputPathFilter(job, OutputLogFilter.class);
 
 			FileOutputFormat.setOutputPath(job, new Path(outputPath));
-//			FileOutputFormat.setCompressOutput(job, true);
-//			FileOutputFormat.setOutputCompressorClass(job, LzoCodec.class);
 
 			job.waitForCompletion(true);
 

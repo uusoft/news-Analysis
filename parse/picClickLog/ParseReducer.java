@@ -1,4 +1,4 @@
-package parsePicClickLog;
+package parse.picClickLog;
 
 import java.io.IOException;
 

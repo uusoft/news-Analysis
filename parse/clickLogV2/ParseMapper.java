@@ -1,4 +1,4 @@
-package parsePicClickLog;
+package parse.clickLogV2;
 
 import java.io.IOException;
 
@@ -16,15 +16,15 @@ public class ParseMapper extends Mapper<Object, Text, Text, Text> {
 	public void map(Object key, Text value, Context context) {
 
 		String firstColumn = value.toString().split("\"")[0];
-		String[] temp = ParseLog.parsePicLog(firstColumn);
+		String[] temp = ParseLog.parseInterfaceOfArticle(firstColumn);
 		if (temp == null)
 			return;
-		String picName = temp[0];
+		String newsId = temp[0];
 		String userId = temp[1];
 		String time = temp[2];
 		
 		try {
-			context.write(new Text(picName), new Text(userId + "," + time));
+			context.write(new Text(newsId), new Text(userId + "," + time));
 		} catch (IOException e) {
 
 			e.printStackTrace();

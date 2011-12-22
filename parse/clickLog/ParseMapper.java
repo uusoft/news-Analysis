@@ -1,4 +1,4 @@
-package parseClickLogV2;
+package parse.clickLog;
 
 import java.io.IOException;
 
@@ -8,23 +8,24 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 /**
- * @author cuitao output: key=newsId value=userId + "," + time
+ * @author cuitao 
  */
 public class ParseMapper extends Mapper<Object, Text, Text, Text> {
 
 	@Override
 	public void map(Object key, Text value, Context context) {
-
-		String firstColumn = value.toString().split("\"")[0];
-		String[] temp = ParseLog.parseInterfaceOfArticle(firstColumn);
-		if (temp == null)
+		String line = value.toString();
+		String firstColumn = line.split("\"")[0];
+		
+		String[] parsedList = ParseLog.parseHtmlLog(firstColumn);
+		if (parsedList == null)
 			return;
-		String newsId = temp[0];
-		String userId = temp[1];
-		String time = temp[2];
+		String newsId = parsedList[0];
+		String uid = parsedList[1];
+		String time = parsedList[2];
 		
 		try {
-			context.write(new Text(newsId), new Text(userId + "," + time));
+			context.write(new Text(newsId), new Text(uid + "," + time));
 		} catch (IOException e) {
 
 			e.printStackTrace();
@@ -34,6 +35,6 @@ public class ParseMapper extends Mapper<Object, Text, Text, Text> {
 		}
 
 	}
-	
-	
+
+
 }

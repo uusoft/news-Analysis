@@ -1,4 +1,4 @@
-package parseReceive;
+package parse.receive;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -14,8 +14,8 @@ public class Utils {
 	public static Pattern patternMPaperLineF = Pattern.compile("f=(\\b\\w*\\b)");
 	
 	/**
-	 * @param line	ÊäÈëÖµ£¬Ò»ÐÐnginx log
-	 * @return	StringÊý×é ¡¾userId,Æ½Ì¨Ãû³Æ£¬termId(ÒÔ¶ººÅ·Ö¸ô)¡¿
+	 * @param line	ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½Ò»ï¿½ï¿½nginx log
+	 * @return	Stringï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½userId,Æ½Ì¨ï¿½ï¿½Æ£ï¿½termId(ï¿½Ô¶ï¿½ï¿½Å·Ö¸ï¿½)ï¿½ï¿½
 	 */
 	public static List<String> parseUrl(String line) {
 		List<String> result = new ArrayList<String>();
@@ -24,7 +24,7 @@ public class Utils {
 		String url = temp3[0];
 		String mpaperLine = temp3[11];
 		
-		//Æ¥ÅäuserId
+		//Æ¥ï¿½ï¿½userId
 		Matcher matcherB = patternMPaperLine.matcher(mpaperLine);
 		if (matcherB.find()) {
 //			System.out.println(matcherB.group());
