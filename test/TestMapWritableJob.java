@@ -49,17 +49,17 @@ public class TestMapWritableJob {
 
 	public static class Reducer1 extends Reducer<Text, Text, Text, Text> {
 		@Override
-		public void reduce(Text key, Iterable<Text> valueList, Context context) {
+		public void reduce(Text uid, Iterable<Text> valueList, Context context) {
 			MapWritable preference = new MapWritable();
 			
 			for (Text nid : valueList) {
-
-				if (preference.containsKey(nid)) {
-					IntWritable value = (IntWritable) preference.get(nid);
-					preference.put(nid, new IntWritable(value.get()+1));
+				Text newNid = new Text(nid.toString());
+				if (preference.containsKey(newNid)) {
+					IntWritable value = (IntWritable) preference.get(newNid);
+					preference.put(newNid, new IntWritable(value.get()+1));
 				}
 				else
-					preference.put(nid, new IntWritable(1));
+					preference.put(newNid, new IntWritable(1));
 			}
 			
 			for (Map.Entry<Writable, Writable> entry : preference.entrySet()) {
@@ -67,7 +67,7 @@ public class TestMapWritableJob {
 				IntWritable v = (IntWritable) entry.getValue();
 				
 				try {
-					context.write(k, new Text(v.get()+""));
+					context.write(new Text(uid+":"+k), new Text(v.get()+""));
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -76,17 +76,7 @@ public class TestMapWritableJob {
 					e.printStackTrace();
 				}
 			}
-//			for (Text value : valueList) {
-//				try {
-//					context.write(key, value);
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
+
 		}
 	}
 

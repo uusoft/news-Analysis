@@ -15,7 +15,7 @@ import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.mapreduce.Reducer;
 
 
-public class UserVectorReducer extends Reducer<Text,Text,Text,MapWritable>{
+public class PrefReducer extends Reducer<Text,Text,Text,MapWritable>{
 	
 	@Override
 	public void reduce(Text uid, Iterable<Text> nidList, Context context) {
@@ -24,13 +24,13 @@ public class UserVectorReducer extends Reducer<Text,Text,Text,MapWritable>{
 		MapWritable preference = new MapWritable();
 		List<Text> t = new ArrayList<Text>();
 
-		if (uid.toString().equals("9991157")) {
-			System.out.println("pause here");
-		}
+//		if (uid.toString().equals("9991157")) {
+//			System.out.println("pause here");
+//		}
 		for (Text nid : nidList) {
-			Text nidNew = new Text(nid.toString());
-			nid=nidNew;
-			t.add(nid);
+//			Text nidNew = new Text(nid.toString());
+//			nid=nidNew;
+//			t.add(nid);
 			if (preference.containsKey(nid)) {
 				IntWritable value = (IntWritable) preference.get(nid);
 				preference.put(nid, new IntWritable(value.get()+1));

@@ -54,6 +54,7 @@ private Map<String,Class<?>> classMap = new HashMap<String,Class<?>>();
 		runDriver.add("api-stat", stat.api.UvDriver.class);
 		runDriver.add("text2Seq", parse.FileParseTextToSequence.class);
 		runDriver.add("test", TestMapWritableJob.class);
+		runDriver.add("testIO", test.FileOperation.class);
 		runDriver.add("lastvisit", parse.lastvisit.Driver.class);
 
 		String className = args[0];

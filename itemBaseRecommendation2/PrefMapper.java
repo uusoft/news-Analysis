@@ -6,7 +6,7 @@ import org.apache.hadoop.io.ArrayWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class UserVectorMapper extends Mapper<Text,Text,Text,Text>{
+public class PrefMapper extends Mapper<Text,Text,Text,Text>{
 	
 	@Override
 	public void map(Text nid, Text uidAndTime, Context context) {
@@ -17,7 +17,7 @@ public class UserVectorMapper extends Mapper<Text,Text,Text,Text>{
 		if (uid.equals(""))
 			return;
 		try {
-			context.write(new Text(uid), nid);
+			context.write(new Text("u"+uid), new Text("n"+nid));
 //			System.out.println(uid+","+nid);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

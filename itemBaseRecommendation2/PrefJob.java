@@ -12,7 +12,7 @@ import org.apache.hadoop.mapreduce.lib.input.SequenceFileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.SequenceFileOutputFormat;
 
-public class UserVectorJob extends ToolJob {
+public class PrefJob extends ToolJob {
 
 
 	
@@ -24,11 +24,11 @@ public class UserVectorJob extends ToolJob {
 		
 		Configuration conf = getConf();
 		
-		Job job = new Job(conf,"user verctor");
-		job.setMapperClass(UserVectorMapper.class);
+		Job job = new Job(conf,"pref");
+		job.setMapperClass(PrefMapper.class);
 		job.setMapOutputKeyClass(Text.class);
 		job.setMapOutputValueClass(Text.class);
-		job.setReducerClass(UserVectorReducer.class);
+		job.setReducerClass(PrefReducer.class);
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(MapWritable.class);
 		job.setOutputFormatClass(SequenceFileOutputFormat.class);
