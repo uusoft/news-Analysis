@@ -16,13 +16,14 @@ public class CooccurrenceReducer extends Reducer<Text,Text,Text,ItemCooccurrence
 		MapWritable nidMap = new MapWritable();
 		
 		for (Text nid2 : nidList) {
-			if (nidMap.containsKey(nid2)) {
-				IntWritable coValue = (IntWritable) nidMap.get(nid2);
+			Text key = new Text(nid2.toString());
+			if (nidMap.containsKey(key)) {
+				IntWritable coValue = (IntWritable) nidMap.get(key);
 				int count = coValue.get();
-				nidMap.put(nid2, new IntWritable(++count));
+				nidMap.put(key, new IntWritable(++count));
 			}
 			else {
-				nidMap.put(nid2, new IntWritable(1));
+				nidMap.put(key, new IntWritable(1));
 			}
 
 		}

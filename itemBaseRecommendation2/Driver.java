@@ -33,7 +33,13 @@ public class Driver {
 				ToolRunner.run(new CooccurrenceJob(), newArgs);
 			}
 			else if ("3".equals(step)) {
+				ToolRunner.run(new WrapCoJob(), newArgs);
+			}
+			else if ("4".equals(step)) {
 				ToolRunner.run(new WrapPrefJob(), newArgs);
+			}
+			else if ("5".equals(step)) {
+				ToolRunner.run(new CoAndPrefCombineJob(), newArgs);
 			}
 			else if ("all".equals(step)) {
 				String input = newArgs[0];

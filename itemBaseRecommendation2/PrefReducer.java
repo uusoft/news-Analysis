@@ -39,11 +39,11 @@ public class PrefReducer extends Reducer<Text,Text,Text,MapWritable>{
 				preference.put(nid, new IntWritable(1));
 		}
 
-		System.out.print(uid+":");		
-		for (Entry<Writable, Writable> entry : preference.entrySet()) {
-			System.out.print(entry.getKey()+","+entry.getValue()+"|");
-		}
-		System.out.println("");
+//		System.out.print(uid+":");		
+//		for (Entry<Writable, Writable> entry : preference.entrySet()) {
+//			System.out.print(entry.getKey()+","+entry.getValue()+"|");
+//		}
+//		System.out.println("");
 		
 		try {
 

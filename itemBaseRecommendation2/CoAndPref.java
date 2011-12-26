@@ -13,7 +13,7 @@ public class CoAndPref implements Writable{
 	
 	private Text nid;
 	private MapWritable co;
-	private MapWritable pref;
+	private MapWritable pref; //uid->prefValue
 	private BooleanWritable hasCo = new BooleanWritable(false);
 	private BooleanWritable hasPref = new BooleanWritable(false);
 	
