@@ -45,7 +45,6 @@ private Map<String,Class<?>> classMap = new HashMap<String,Class<?>>();
 		runDriver.add("parseClickLog.Driver", parse.clickLog.Driver.class);
 		runDriver.add("sequenceFileTest.Driver", sequenceFileTest.Driver.class);
 		runDriver.add("parseReceive.Driver", parse.receive.Driver.class);
-		runDriver.add("similarity.Driver", similarity.Driver.class);
 		runDriver.add("parseClickLogV2.Driver", parse.clickLogV2.Driver.class);
 		runDriver.add("parseClickLog.Driver", parse.clickLog.Driver.class);
 		runDriver.add("recommend", itemBaseRecommendation2.Driver.class);
@@ -56,6 +55,7 @@ private Map<String,Class<?>> classMap = new HashMap<String,Class<?>>();
 		runDriver.add("test", TestMapWritableJob.class);
 		runDriver.add("testIO", test.FileOperation.class);
 		runDriver.add("lastvisit", parse.lastvisit.Driver.class);
+		runDriver.add("pref", pref.PrefJob.class);
 
 		String className = args[0];
 		if (args[0].equalsIgnoreCase("-help")) {
