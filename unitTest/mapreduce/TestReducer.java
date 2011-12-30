@@ -23,10 +23,10 @@ public class TestReducer {
 	}
 
 	@Test
-	public void testWCMapper() {
+	public void testReducer() {
 		List<Text> list = new ArrayList<Text>();
-		list.add(new Text("a"));
-		list.add(new Text("b"));
+		list.add(new Text("6054820"));
+		list.add(new Text("9466941"));
 //		list.add(new Text("c"));
 
 //		reduceDriver.withReducer(reducer).withInput(new Text("1"), list)
@@ -35,8 +35,8 @@ public class TestReducer {
 //		.withOutput(new Text("c"),new Text("b"))
 //				.runTest();
 		reduceDriver.withReducer(reducer).withInput(new Text("1"), list)
-		.withOutput(new Text("a"),new Text("b"))
-		.withOutput(new Text("b"),new Text("a"))
+		.withOutput(new Text("9466941"),new Text("6054820"))
+		.withOutput(new Text("6054820"),new Text("9466941"))
 //		.withOutput(new Text("b"),new Text("c"))
 //		.withOutput(new Text("b"),new Text("b"))
 				.runTest();

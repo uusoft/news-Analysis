@@ -70,6 +70,7 @@ public class FileParseTextToSequence {
 			Job job = JobUtil.prepareJob("FileParseTextToSequnce", conf,
 					Mapper1.class, Text.class, Text.class,
 					Reducer1.class, Text.class, Text.class);
+			job.setJarByClass(FileParseTextToSequence.class);
 			job.setInputFormatClass(TextInputFormat.class);
 			job.setOutputFormatClass(SequenceFileOutputFormat.class);
 			

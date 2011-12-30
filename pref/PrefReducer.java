@@ -12,12 +12,13 @@ import org.apache.hadoop.mapreduce.Reducer;
 public class PrefReducer extends Reducer<Text,Text,Text,Text>{ 
 	@Override
 	public void reduce (Text nid, Iterable<Text> uidList, Context context)  {
-		Set<Text> set = new HashSet<Text>();
-		List<Text> list = new ArrayList<Text>();
+		Set<String> set = new HashSet<String>();
 		for (Text uid : uidList) {
-			set.add(new Text(uid.toString()));
+			set.add("u"+uid.toString());
 		}
-		for (Text uid : set) {
+		
+		List<String> list = new ArrayList<String>();
+		for (String uid : set) {
 			list.add(uid);
 		}
 		if (list.size() < 2) 
@@ -25,8 +26,8 @@ public class PrefReducer extends Reducer<Text,Text,Text,Text>{
 		for (int i=0; i<list.size()-1; i++) {
 			for (int j=i+1; j<list.size(); j++) {
 				try {
-					context.write(list.get(i), list.get(j));
-					context.write(list.get(j), list.get(i));
+					context.write(new Text(list.get(i)), new Text(list.get(j)));
+					context.write(new Text(list.get(j)), new Text(list.get(i)));
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
