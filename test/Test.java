@@ -1,14 +1,17 @@
 package test;
 
-import org.apache.hadoop.util.ToolRunner;
-
 import lib.ToolJob;
+
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.util.ToolRunner;
 
 public class Test extends ToolJob{
 
 	public static void main (String[] args) {
 		try {
-			ToolRunner.run(new Test(), args);
+			Configuration conf = new Configuration();
+			ToolRunner.run(conf, new Test(), args);
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -17,8 +20,8 @@ public class Test extends ToolJob{
 
 	@Override
 	public int run(String[] arg0) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return 1;
 	}
 		
 	

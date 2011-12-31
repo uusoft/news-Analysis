@@ -14,21 +14,25 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.SequenceFileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.SequenceFileOutputFormat;
+import org.apache.hadoop.util.GenericOptionsParser;
 import org.apache.hadoop.util.ToolRunner;
 
 public class PrefJob extends ToolJob{
 
 	public static void main(String[] args) throws Exception {
 
-		ToolRunner.run(new PrefJob(), args);
+		
+		PrefJob prefJob = new PrefJob();
+		GenericOptionsParser parser = new GenericOptionsParser(prefJob.getConf(), args);
+		System.out.println("mapred.reduce.tasks:"+prefJob.getConf().get("mapred.reduce.tasks"));
+//		ToolRunner.run(prefJob, args);
 		
 
 	}
 
-	public static void runStep1(String input, String output, Configuration conf) throws Exception {
+	public void runStep1(String input, String output) throws Exception {
 
-		
-		Job job = JobUtil.prepareJob("step1", conf, PrefMapper.class,
+		Job job = JobUtil.prepareJob("step1", getConf(), PrefMapper.class,
 				Text.class, Text.class, PrefReducer.class, Text.class,
 				Text.class);
 		job.setJarByClass(PrefJob.class);
@@ -43,9 +47,9 @@ public class PrefJob extends ToolJob{
 
 	}
 
-	public static void runStep2(String input, String output, Configuration conf) throws Exception {
+	public void runStep2(String input, String output) throws Exception {
 
-		Job job = JobUtil.prepareJob("step1", conf, PrefMapper2.class,
+		Job job = JobUtil.prepareJob("step1", getConf(), PrefMapper2.class,
 				Text.class, Text.class, PrefReducer2.class, Text.class,
 				Text.class);
 		job.setJarByClass(PrefJob.class);
@@ -66,20 +70,19 @@ public class PrefJob extends ToolJob{
 		String step = args[0];
 		String input = args[1];
 		String output = args[2];
-		Configuration conf = new Configuration();
 		
 		if (step.equals("1")) {
-			runStep1(input,output,conf);
+			runStep1(input,output);
 		}
 		else if (step.equals("2")) {
-			runStep2(input,output,conf);
+			runStep2(input,output);
 		}
 		else if (step.equals("all")) {
 			String tempPath = "tempPath";
-			FileUtil.delete(new Path(tempPath), conf);
-			runStep1(input,tempPath,conf);
+			FileUtil.delete(new Path(tempPath), getConf());
+			runStep1(input,tempPath);
 			
-			runStep2(tempPath,output,conf);
+			runStep2(tempPath,output);
 		}
 		return 0;
 	}
