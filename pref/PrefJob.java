@@ -22,9 +22,9 @@ public class PrefJob extends ToolJob{
 	public static void main(String[] args) throws Exception {
 
 		
-		PrefJob prefJob = new PrefJob();
-		GenericOptionsParser parser = new GenericOptionsParser(prefJob.getConf(), args);
-		System.out.println("mapred.reduce.tasks:"+prefJob.getConf().get("mapred.reduce.tasks"));
+//		PrefJob prefJob = new PrefJob();
+//		GenericOptionsParser parser = new GenericOptionsParser(prefJob.getConf(), args);
+//		System.out.println("mapred.reduce.tasks:"+prefJob.getConf().get("mapred.reduce.tasks"));
 //		ToolRunner.run(prefJob, args);
 		
 

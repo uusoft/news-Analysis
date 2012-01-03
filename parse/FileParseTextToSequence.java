@@ -3,6 +3,7 @@ package parse;
 import java.io.IOException;
 
 import lib.JobUtil;
+import lib.ToolJob;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -16,7 +17,7 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.SequenceFileOutputFormat;
 
-public class FileParseTextToSequence {
+public class FileParseTextToSequence extends ToolJob{
 
 	public static class Mapper1 extends Mapper<LongWritable, Text, Text, Text> {
 		@Override
@@ -55,41 +56,37 @@ public class FileParseTextToSequence {
 			}
 		}
 	}
+	
+	@Override
+	public int run(String[] args) throws Exception {
+		if (args.length != 2) {
+			System.out.println("wrong args");
+			return 0;
+		}
+		
+		String input = args[0];
+		String output = args[1];
+		
+		Job job = JobUtil.prepareJob("FileParseTextToSequnce", getConf(),
+				Mapper1.class, Text.class, Text.class,
+				Reducer1.class, Text.class, Text.class);
+		job.setJarByClass(FileParseTextToSequence.class);
+		job.setInputFormatClass(TextInputFormat.class);
+		job.setOutputFormatClass(SequenceFileOutputFormat.class);
+		
+		FileInputFormat.addInputPath(job, new Path(input));
+		FileOutputFormat.setOutputPath(job, new Path(output));
+		
+		job.waitForCompletion(true);
+		return 0;
+	}
 
 	public static void main(String[] args) {
 
-		if (args.length != 2) {
-			System.out.println("wrong args");
-			System.exit(0);
-		}
-		String input = args[0];
-		String output = args[1];
-
-		Configuration conf = new Configuration();
-		try {
-			Job job = JobUtil.prepareJob("FileParseTextToSequnce", conf,
-					Mapper1.class, Text.class, Text.class,
-					Reducer1.class, Text.class, Text.class);
-			job.setJarByClass(FileParseTextToSequence.class);
-			job.setInputFormatClass(TextInputFormat.class);
-			job.setOutputFormatClass(SequenceFileOutputFormat.class);
-			
-			FileInputFormat.addInputPath(job, new Path(input));
-			FileOutputFormat.setOutputPath(job, new Path(output));
-			
-			job.waitForCompletion(true);
-			
-			
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
+
+
+
+	
 }
