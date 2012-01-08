@@ -4,6 +4,7 @@ import java.util.Map;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
+import test.PrepareCanopy;
 import test.TestMapWritableJob;
 
 import lib.ToolJob;
@@ -29,6 +30,7 @@ public class MainDriver2 {
 		add("testIO", test.FileOperation.class);
 		add("lastvisit", parse.lastvisit.Driver.class);
 		add("pref", pref.PrefJob.class);
+		add("precanopy", PrepareCanopy.class);
 	}
 	
 	public static void main (String[] args) throws Exception {

@@ -46,6 +46,10 @@ public class ListWritable implements Writable {
 	public List<Writable> getList() {
 		return values;
 	}
+	
+	public void add (Writable value) {
+		values.add(value);
+	}
 
 	public String[] toStrings() {
 		String[] strings = new String[values.size()];
@@ -83,3 +87,6 @@ public class ListWritable implements Writable {
 	}
 
 }
+
+
+
