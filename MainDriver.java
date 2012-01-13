@@ -72,6 +72,7 @@ private Map<String,Class<?>> classMap = new HashMap<String,Class<?>>();
 		add("test", TestMapWritableJob.class);
 		add("testIO", test.FileOperation.class);
 		add("lastvisit", parse.lastvisit.Driver.class);
+		add("templastvisit", tempLastvisit.Driver.class);
 		add("pref", pref.PrefJob.class);
 
 		String className = args[0];

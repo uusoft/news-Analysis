@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 public class DateUtil {
 
 	public static String formatDate(Date date) {
-		String result = formatDate(date,"yyyy-MM-dd:hh:mm:dd");
+		String result = formatDate(date,"yyyy-MM-dd:HH:mm:ss");
 		return result;
 	}
 	
@@ -38,7 +38,7 @@ public class DateUtil {
 		time = time.replaceAll("\\s", "");
 		time = time.replaceAll("\\+0800", "");
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy:hh:mm:ss",Locale.US);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy:HH:mm:ss",Locale.US);
 		Date result = null;
 		try {
 			result = sdf.parse(time);
@@ -58,7 +58,7 @@ public class DateUtil {
 		dateString = dateString.replaceAll("\\s", "");
 		dateString = dateString.replaceAll("\\+0800", "");
 		System.out.println(dateString);
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MMMM/yyyy:hh:mm:ss",Locale.US);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MMMM/yyyy:HH:mm:ss",Locale.US);
 		try {
 			Date d = sdf.parse(dateString);
 			System.out.println(d);
