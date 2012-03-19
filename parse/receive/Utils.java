@@ -21,8 +21,17 @@ public class Utils {
 		List<String> result = new ArrayList<String>();
 
 		String[] temp3 = line.split("\"");
+		if (temp3.length < 12) {
+//			for (String s : temp3) {
+//				System.out.println(s);
+//			}
+//			System.out.println("-----------");
+			return null;
+		}
 		String url = temp3[0];
 		String mpaperLine = temp3[11];
+		
+		
 		
 		//ƥ��userId
 		Matcher matcherB = patternMPaperLine.matcher(mpaperLine);

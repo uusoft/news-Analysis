@@ -18,6 +18,7 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.SequenceFileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.SequenceFileOutputFormat;
@@ -36,7 +37,7 @@ public class PrepareCanopy extends ToolJob{
 		Job job = JobUtil.prepareJob("prepare canopy", conf, Mapper1.class, Text.class, Text.class, Reducer1.class, Text.class, VectorWritable.class);
 		
 		job.setJarByClass(PrepareCanopy.class);
-		job.setInputFormatClass(TextInputFormat.class);
+		job.setInputFormatClass(SequenceFileInputFormat.class);
 		job.setOutputFormatClass(SequenceFileOutputFormat.class);
 		
 		FileInputFormat.addInputPath(job, new Path(input));
@@ -46,19 +47,15 @@ public class PrepareCanopy extends ToolJob{
 		return 0;
 	}
 
-	public static class Mapper1 extends Mapper<Object,Text,Text,Text> {
+	public static class Mapper1 extends Mapper<Text,Text,Text,Text> {
 		@Override
-		public void map (Object object, Text line, Context context) {
+		public void map (Text nid, Text line, Context context) {
 			String[] tmp2 = line.toString().split("\t");
-			if (tmp2.length !=2) 
+			if (tmp2.length <1) 
 				return;
-			Text nid = new Text(tmp2[0]);
-			String[] tmp3 = tmp2[1].toString().split(",");
-			if (tmp3.length != 2) {
-				return;
-			}
-			String uid = tmp3[0];
-			if (uid.equalsIgnoreCase("") || uid.length()<2)
+			String uid = tmp2[0];
+			
+			if (uid.equalsIgnoreCase("") || uid.length()<=3)
 				return;
 			
 			try {
@@ -70,6 +67,30 @@ public class PrepareCanopy extends ToolJob{
 			}
 		}
 	}
+//	public static class Mapper1 extends Mapper<Object,Text,Text,Text> {
+//		@Override
+//		public void map (Object object, Text line, Context context) {
+//			String[] tmp2 = line.toString().split("\t");
+//			if (tmp2.length !=2) 
+//				return;
+//			Text nid = new Text(tmp2[0]);
+//			String[] tmp3 = tmp2[1].toString().split(",");
+//			if (tmp3.length != 2) {
+//				return;
+//			}
+//			String uid = tmp3[0];
+//			if (uid.equalsIgnoreCase("") || uid.length()<2)
+//				return;
+//			
+//			try {
+//				context.write(new Text(uid), nid);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//	}
 	
 	public static class Reducer1 extends Reducer<Text,Text,Text,VectorWritable> {
 		

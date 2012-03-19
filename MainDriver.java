@@ -3,7 +3,6 @@ import java.util.Map;
 
 import lib.ToolJob;
 
-import org.apache.hadoop.io.TestMapWritable;
 import org.apache.hadoop.util.ToolRunner;
 
 import test.TestMapWritableJob;
